@@ -2,12 +2,14 @@ import express from 'express';
 import axios from 'axios';
 import path from 'path';
 import { fileURLToPath } from 'url';
-
+import dotenv from 'dotenv';
 import apiRouter from "./src/routes/api.js";
 
+dotenv.config();
+
 const app = express();
-const port = 3000;
-const API_URL = "http://localhost:3000/api2/";
+const port = process.env.PORT || 3000;
+const API_URL = process.env.API_URL;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
