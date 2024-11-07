@@ -1,8 +1,6 @@
 import express from "express";
-import bodyParser from "body-parser";
 
-const app = express();
-const port = 4000;
+const app = express.Router();
 
 let posts = [
   {
@@ -32,11 +30,6 @@ let posts = [
 ];
 
 let lastId = 3;
-
-// Middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 
 app.get("/posts", (req, res) => {
   res.json(posts);
@@ -89,6 +82,5 @@ app.delete("/posts/:id", (req, res) =>{
 
 });
 
-app.listen(port, () => {
-  console.log(`API is running at http://localhost:${port}`);
-});
+
+export default app; // This is the api router

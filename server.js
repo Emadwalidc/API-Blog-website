@@ -1,15 +1,24 @@
-import express from "express";
-import bodyParser from "body-parser";
-import axios from "axios";
+import express from 'express';
+import axios from 'axios';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+import apiRouter from "./src/routes/api.js";
 
 const app = express();
 const port = 3000;
-const API_URL = "http://localhost:4000";
+const API_URL = "http://localhost:3000/api2/";
 
-app.use(express.static("public"));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'src/public')));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'src/views'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.use("/api2", apiRouter);
 
 // Route to render the main page
 app.get("/", async (req, res) => {
